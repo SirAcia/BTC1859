@@ -57,5 +57,5 @@ x_1 <- seq(from=-4,to=8,length.out = 1000)
 y_1 <- dt(x_1, df_1)
 points(x,y_1, type="l", col="orange")
 
-
+legend(x = 1, y = 1, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), lty = 1, title = "test")
 
