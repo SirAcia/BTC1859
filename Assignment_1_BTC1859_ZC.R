@@ -17,4 +17,16 @@
 #' 
 #' Given p = 0.2, _________
 
-prob_at_least_6 <- pbinom(5,size = 15,prob = 0.2)
+prob_at_least_6 <- 1 - pbinom(5,size = 15,prob = 0.2)
+
+#outputting probability to console window
+prob_at_least_6
+
+# prob_at_least_6 = 0.06105143
+
+#' Calculates the porbability fo there being at least 5 (x <= 5) 
+#' takes the complement to see the probablity of there being at least 6 cases 
+#' of sickeness in a given class, given the parameters 
+
+#' -------------------------------------
+
