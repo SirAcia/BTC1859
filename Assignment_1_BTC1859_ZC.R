@@ -30,3 +30,10 @@ prob_at_least_6
 
 #' -------------------------------------
 
+# Question 5
+
+#Setting sequence for x-axis, using seq func to ensure smooth line (has many, many points)
+x <- seq(from=-4,to=8,length.out = 1000)
+y_norm <- dnorm(x, mean = 0, sd = sqrt(1), log = FALSE)
+plot(x,y_norm, type = "p", main="t-distribution, degrees of freedom", xlab = "test",ylab = "test")
+
