@@ -2,6 +2,8 @@
 #' Prof. Nicholas Mitsakakis, Summer Term, 2024
 #' Zachery Chan, 1005468012
 
+# Github repo for R: https://github.com/SirAcia/BTC1859.git
+
 # Please note that questions 2-4 are answered on the word document/written report
 
 #' -------------------------------------
