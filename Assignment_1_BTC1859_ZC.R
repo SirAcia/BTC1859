@@ -61,5 +61,4 @@ y_1 <- dt(x, df_1)
 points(x,y_1, type="l", col="orange")
 
 #Creating legend for the graph
-legend("topright", legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), lty = 1, border = "black", title = "Degrees of Freedom")
-
+legend(x = 4.3, y = 0.39, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), col = c("blue", "red", "black", "green", "orange"), lty = 1, border = "black", lwd = 2, cex = 1.3)
