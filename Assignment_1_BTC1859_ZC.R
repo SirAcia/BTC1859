@@ -41,7 +41,11 @@ x <- seq(from = -4, to = 8, length.out = 1000)
 y_norm <- dnorm(x, mean = 0, sd = sqrt(1), log = FALSE)
 
 #Plotting the normal distribution first as it well be tallest and set the zoom for y-axis accordingly
-plot(x, y_norm, type = "l",col = "#000339", xlab = " ",ylab = " ", yaxt = "n", frame.plot = FALSE, lwd = 1.5)
+plot(x, y_norm, type = "l",col = "#000339", xlab = " ",
+     ylab = " ", yaxt = "n", frame.plot = FALSE, lwd = 1.5, )
+
+#Creating tick marks on the graph
+axis(side = 1, at = c(-3, -1, 1, 3, 5, 7),labels = F)
 
 #Creating vectors for the given degrees of freedom for the t-distributions
 df_8 <- 8
