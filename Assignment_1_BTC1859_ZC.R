@@ -39,7 +39,7 @@ x <- seq(from=-4,to=8,length.out = 1000)
 y_norm <- dnorm(x, mean = 0, sd = sqrt(1), log = FALSE)
 
 #Plotting the normal distribution first as it well be tallest and set the zoom for y-axis accordingly
-plot(x,y_norm, type = "l", main="t-distribution, degrees of freedom",col = "blue", xlab = " ",ylab = " ")
+plot(x,y_norm, type = "l", main="t-distribution, degrees of freedom",col = "blue", xlab = " ",ylab = " ", yaxt="n", frame.plot = FALSE)
 
 #Creating vectors for the given degrees of freedom for the t-distributions
 df_8 <- 8
@@ -61,4 +61,4 @@ y_1 <- dt(x, df_1)
 points(x,y_1, type="l", col="orange")
 
 #Creating legend for the graph
-legend(x = 4.3, y = 0.39, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), col = c("blue", "red", "black", "green", "orange"), lty = 1, border = "black", lwd = 2, cex = 1.3)
+legend(x = 4.5, y = 0.39, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), col = c("blue", "red", "black", "green", "orange"), lty = 1, border = "black", lwd = 2, cex = 1.15)
