@@ -33,13 +33,13 @@ prob_at_least_6
 # Question 5
 
 #Setting sequence for x-axis, using seq func to ensure smooth line (has many, many points)
-x <- seq(from=-4,to=8,length.out = 1000)
+x <- seq(from = -4, to = 8, length.out = 1000)
 
 #PLotting normal distribution as y to plot on graph, using standard normal distribution (mean = 0, var = 1)
 y_norm <- dnorm(x, mean = 0, sd = sqrt(1), log = FALSE)
 
 #Plotting the normal distribution first as it well be tallest and set the zoom for y-axis accordingly
-plot(x,y_norm, type = "l", main="t-distribution, degrees of freedom",col = "blue", xlab = " ",ylab = " ", yaxt="n", frame.plot = FALSE)
+plot(x, y_norm, type = "l",col = "black", xlab = " ",ylab = " ", yaxt = "n", frame.plot = FALSE, lwd = 1.5)
 
 #Creating vectors for the given degrees of freedom for the t-distributions
 df_8 <- 8
@@ -49,16 +49,17 @@ df_1 <- 1
 
 #Using points() to plot each t-distribution on the original graph 
 y_8 <- dt(x, df_8)
-points(x,y_8, type="l", col="red")
+points(x, y_8, type = "l", col = "#0000CC", lwd = 1.5)
 
 y_4 <- dt(x, df_4)
-points(x,y_4, type="l", col="green")
+points(x, y_4, type = "l", col = "#0099CC", lwd = 1.5)
 
 y_2 <- dt(x, df_2)
-points(x,y_2, type="l", col="black")
+points(x, y_2, type = "l", col = "#00CCCC", lwd = 1.5)
 
 y_1 <- dt(x, df_1)
-points(x,y_1, type="l", col="orange")
+points(x, y_1, type = "l", col = "#33FFFF", lwd = 1.5)
 
 #Creating legend for the graph
-legend(x = 4.5, y = 0.39, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), col = c("blue", "red", "black", "green", "orange"), lty = 1, border = "black", lwd = 2, cex = 1.15)
+legend(x = 4.5, y = 0.39, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), col = c("black", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lty = 1, border = "black", lwd = 2, cex = 1.15)
+
