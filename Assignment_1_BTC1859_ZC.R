@@ -22,7 +22,7 @@
 # of getting sick (i.e. lie in the the population where parameter p = 0.2)
 
 # Finding complement of pbinom(5,size = 15,prob = 0.2), thus the probability of 
-# at least 6 kids gettign sick 
+# at least 6 kids getting sick 
 prob_at_least_6 <- 1 - pbinom(5,size = 15,prob = 0.2)
 
 #outputting probability to console window
