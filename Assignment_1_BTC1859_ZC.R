@@ -69,7 +69,7 @@ points(x, y_1, type = "l", col = "#33FFFF", lwd = 1.5)
 # Creating legend for the graph, used darker colours so it is more visisble 
 # (found the one in the slides hard to read). Set the color of the normal 
 # distribution darker for better disticntion & ease of viewing 
-legend(x = 4.5, y = 0.39, legend = c("normal", "t, df = 8","t, df = 6", "t, df = 4", "t, df = 2"), 
+legend(x = 4.5, y = 0.39, legend = c("normal", "t, df = 8","t, df = 4", "t, df = 2", "t, df = 1"), 
        col = c("#000339", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lty = 1, border = "black", 
        text.col = c("#000339", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lwd = 2.5, cex = 1.15)
 
