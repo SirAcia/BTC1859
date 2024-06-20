@@ -29,6 +29,9 @@ prob_at_least_6 <- 1 - pbinom(5,size = 15,prob = 0.2)
 prob_at_least_6
 
 # prob_at_least_6 = 0.06105143
+# Assuming that this class of kids is part of the general population of students 
+# (such that they are subject to parameters, p = 0.2), the probability of at
+# least 6 cases of illness is approx. 6%.
 
 #' -------------------------------------
 
