@@ -44,8 +44,11 @@ x <- seq(from = -4, to = 8, length.out = 1000)
 y_norm <- dnorm(x, mean = 0, sd = sqrt(1), log = FALSE)
 
 #Plotting the normal distribution first as it well be tallest and set the zoom for y-axis accordingly
-plot(x, y_norm, type = "l",col = "#000339", xlab = " ",
-     ylab = " ", yaxt = "n", frame.plot = FALSE, lwd = 1.5, )
+plot(x, y_norm, type = "l",col = "#000099", xlab = " ",
+     ylab = " ", yaxt = "n", frame.plot = FALSE, lwd = 1.5)
+
+#Adding line at the bottom of the distributions, used segments here as abline() went beyond axis 
+segments(x0 = -4, y0 = 0.0005, x1 = 8, y1 = 0.0005, col="black", lwd=2)
 
 #Creating tick marks on the graph
 axis(side = 1, at = c(-3, -1, 1, 3, 5, 7),labels = F)
@@ -73,10 +76,7 @@ points(x, y_1, type = "l", col = "#33FFFF", lwd = 1.5)
 # (found the one in the slides hard to read). Set the color of the normal 
 # distribution darker for better disticntion & ease of viewing 
 legend(x = 4.5, y = 0.39, legend = c("normal", "t, df = 8","t, df = 4", "t, df = 2", "t, df = 1"), 
-       col = c("#000339", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lty = 1, border = "black", 
-       text.col = c("#000339", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lwd = 2.5, cex = 1.15)
+       col = c("#000099", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lty = 1, border = "black", 
+       text.col = c("#000099", "#0000CC", "#0099CC", "#00CCCC", "#33FFFF"), lwd = 2.5, cex = 1.15)
 
 #Saved graph as file as placed into word report 
-
-
-
