@@ -83,11 +83,17 @@ wilcox.test(MEN, mu=15, alternative = "less")
 #' V = 2, p-value = 0.01489
 #' alternative hypothesis: true location is less than 15
 #' ------------------------------------------------
-#' Importantly, a Wilcoxon test measures the median (and by proxy, the variance) of data rather than the mean 
+#' Importantly, a Wilcoxon test measures the median (and by proxy, the variance and distribution) of data rather than the mean 
 #' so this test gives evidence to determine whether the median of the sample group is less than the proposed median of 15 for the general populatin 
 #' Similar to earlier the one-sided  t-test, the small V value suggests that the median of the sample group is on the left of the distribution, below the median of the general population 
-#' This is further supported by the small p-value of 0.01489 suggesting that there is a 1.49% chnace of the sample median being less than 15 being attributed to sampling/statitsical error assumging the null hypoethsis is correct
-#For Q3, the code to run a Wilcoxon, two-sample, two-sided test: 
+#' This is further supported by the small p-value of 0.01489 suggesting that there is 
+#' a 1.49% chnace of the sample median being less than 15 being attributed to 
+#' sampling/statitsical error assumging the null hypoethsis is correct. 
+#' 
+#' Thus, this wilcoxon test provides confidence to reject the null hypothesis as it is likely that median of the sample group is not the same as the true median of the general population for monthly linoleic acid intake. 
+
+
+# For Q3, the code to run a Wilcoxon, two-sample, two-sided test: 
 wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #' This test reports:
 #' ------------------------------------------------
@@ -95,22 +101,125 @@ wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #' W = 69, p-value = 0.05416
 #' alternative hypothesis: true location shift is not equal to 0
 #' ------------------------------------------------
+#' This analysis and interpretation is veyer simialr to the previous analysis of the one-sided Wilcoxon test. 
+#' The two-sample, two-sided Wilcoxon test analyses the distribution (and median) of the two samples.
+#' Given the high W value and a p-value of 0.05416, this two-sided Wilcoxon test does not provide 
+#' sufficient confidence to reject the null hypothesis as it is above an alpha level of 0.05
+#' 
+#' Overall, this two-sided, two-sample, Wilxcoxon test doe snot privides sufficient confidence reject the null hypothesis
+#' prividing insufficient evidence to suggets taht there is a difference in the medians, and thus ditributions, of the male and female sample groups for this specific dietary program. 
 
 
 
 #For Q5
-#for part 1
-#' I would use a 2 sample t-test 
+# Part 1
+#' This question deals with 2 distinct groups, a control and a treatment group, each with a given probability of acquirinf a disease state (i.e. having a myocardial infarction or MI). 
+#' 
+#' Thus, even though we look at overall number of cases in each group, each sample consists of an aggregatation of individual bernoulli ____ (each individual has an odds to have an MI). 
+#' Therefor, I would use a chi-square test (note that a fisher exact test can also be used here but I chose a chi square as its conditions are met and it provides a grester power)
+#' 
+#' Part 2: 
+#' The assumoptions which need to hold for this test include: 
+#' - Adequatre sample size which requires 2 assumptions:
+#'    - (n_1)*p*(1 − p) > 5
+#'    - (n_2)*p*(1 − p) > 5
+#' - independence of observations (each unit of observation must be indpedent of others)
+#' - Mutual exclusvitiy (each state, having an Mi or not having an MI, must be mutually exclusive)
 #' Assumptions: Normal distribution, unequal variance
+
+#' PART 3 
+#' Visualizing the data 
+#' Constructing data table 
+q3_data <- matrix(c(19, 13, 189, 87), nrow = 2, byrow = TRUE)
+colnames(q3_data) <- c("Streptokinase", "Control")
+rownames(q3_data) <- c("Died", "Survived")
+print (q3_data)
+
+#' Constructing contingency table
+q3_contingency <- matrix(c(19, 13, 32, 189, 87, 276, 208, 200, 716), nrow = 3, byrow = TRUE)
+colnames(q3_contingency) <- c("Streptokinase", "Control", "Total")
+rownames(q3_contingency) <- c("Died", "Survived", "Total")
+print(q3_contingency)
+
+# Calculating proportions and testing normal adssumption, without pooled 
+p_strep <- 19/189
+p_control <- 13/87
+strep_size <- 189*p_strep*(1-p_strep)
+control_size <- 87*p_control*(1-p_control)
+
+# With pooled 
+p_hat <- (19+13)/(189+87)
+pooled_check_strep <- p_hat*189*(1-p_hat)
+pooled_check_control <- p_hat*87*(1-p_hat)
+# as these chekcs fulfill the >5 condition, the sample size is large enough to assume a normal approximation 
+
+#Conducting two-samnple, test for binomial 
+q3_result <- prop.test(q3_data)
+print (q3_result)
+
+#' This test reports:
+#' ------------------------------------------------
+#' data:  q3_data
+#' X-squared = 0.70836, df = 1, p-value = 0.4
+#' alternative hypothesis: two.sided
+#' 95 percent confidence interval:
+#'   -0.2872446  0.1051794
+#' sample estimates:
+#'  prop 1    prop 2 
+#'  0.5937500 0.6847826 
+#' ------------------------------------------------
+#'
+
+# PART 4 
+#Conductign Chi-square for independence 
+#do not need to use x,y argiments as x isa matrix so y is ignored
+q3_independence <- chisq.test(q3_data)
+print(q3_independence)
+#' This test reports:
+#' ------------------------------------------------
+#' data:  q3_data
+#' X-squared = 0.70836, df = 1, p-value = 0.4
+#' #' ------------------------------------------------
+#'
+
+# Part 5
+#' Given that you would be examining data onyl from marhc of 1985, it is very leikely the sample size for either gorup would be much smaller. 
+#' Due to the smaller sample size, ti is likely that a chi-square test cannot be
+#'  used as it does not fulfill the requiremnets of _____ >5 . Therefore, I would use a Fisher Exact test to test for independence of variables
+#'  (i.e. testing to see if teh effects of the streptokinase is indpendent of the control). 
+
+
+# Q6 
+#' Constructing data table
+q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE, dimnames = list(DrugA = c("Premature", "Normal"), Placebo = c("Premature", "Normal")))
+print(q6_data)
+
+#' Constructing contingency table
+q6_contingency <- matrix(c("Drug A/Placebo", "Premature", "Normal", "Total", "Premature", 30, 15, 45, "Normal", 35, 420, 455,"Total", 65, 435, 500), nrow = 4, byrow = TRUE)
+print(q6_contingency)
+#Seeing the discordant pairs heterogenous pairs (i.e. pre&normal or normal&pre), 
+# thus they correspond to the values [3,2] & [2,3]
+ 
+#The condition to be satisfied for a specific McNemar test is: n_d >= 20 
+# Need to use as.numeric here as the matrix stores all data as "chatacter" as strings were enbtered with numbers
+n_d_check <- sum(as.numeric(q6_contingency[3,2]), as.numeric(q6_contingency[2,3]))
+print(n_d_check)
+
+#As n_d > 20, this fulfills the condition for McNemar. The other assumptions required for a McNemar test are:
+#' - Paired data (in this case, the data is intentionally matched as each women is paired with another with a similar weight). 
+#' -independence of observations (each unit of observation, in this case a pair, must be indpedent of others)
+#' - Mutual exclusvitiy (each state, having an premature birth or not, must be mutually exclusive)
+#' - analyses bionomial data (only 2 outcomews with a certain pribability). 
 #' 
-#' 
 
-
-
-
-
-
-
-
+#Condcuting Mcnemar test 
+q6_result <- mcnemar.test(q6_data)
+q6_result
+#' This test reports:
+#' ------------------------------------------------
+#' data:  q6_data
+#' McNemar's chi-squared = 7.22, df = 1, p-value = 0.00721
+#' #' ------------------------------------------------
+#'
 
 
