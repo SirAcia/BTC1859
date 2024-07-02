@@ -43,8 +43,9 @@ t.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #' 
 #' The interpretation of this test is in the written report
 
-#For Q3, the code to run a Wilcoxon, one-sample, one-sided test: 
+#For Q3, the code to run a Wilcoxon, one-sample, one-sided, rank-sign test: 
 wilcox.test(MEN, mu=15, alternative = "less")
+
 #' This test reports:
 #'
 #' data:  MEN
@@ -53,7 +54,7 @@ wilcox.test(MEN, mu=15, alternative = "less")
 #' 
 #' The interpretation of this test is in the written report
 
-# For Q3, the code to run a Wilcoxon, two-sample, two-sided test: 
+# For Q3, the code to run a Wilcoxon, two-sample, two-sided rank-sum test: 
 wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 
 #' This test reports:
@@ -69,38 +70,22 @@ wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #' ---------------------------------------------------------------------------------------------
 # QUESTION 5 
 
-# Part 1:
-#' This question deals with 2 distinct groups, a control and a treatment group, each with a given 
-#' probability of surviving a myocardial infarction 
-#' 
-#' Note that the hypothesis for this question (for both the proportion testing and independence testing)
-#' are stated in the written report
-#' 
-#' Even though we look at overall number of cases in each group, each sample consists of an 
-#' aggregation of individual Bernoulli trials (each individual has an given odds to have an MI). 
-#' Therefore, I would use a chi-square test (note that a fisher exact test can also be used here
-#'  but I chose a chi square as its conditions are met and it provides a greater power). 
-#' 
-#' Part 2: 
-#' The assumptions which need to hold for this test include: 
-#' - Adequate sample size which requires 2 assumptions:
-#'    - (n_1)*p*(1 − p) > 5, where p is the pooled probability from the 2 samples
-#'    - (n_2)*p*(1 − p) > 5, where p is the pooled probability from the 2 samples
-#' - Independence of observations (each unit of observation must be independent of others)
-#' - Mutual exclusivity (each state, survived an MI or deceased, are mutually exclusive from each other)
-
 #' PART 3 
 #' Visualizing the data 
 #' Constructing data table 
-q5_data <- matrix(c(19, 13, 189, 87), nrow = 2, byrow = TRUE)
-colnames(q5_data) <- c("Streptokinase", "Control")
-rownames(q5_data) <- c("Died", "Survived")
+strep_failures <- 189 - 19
+control_failures <- 87 - 13
+strep = c(19, strep_failures)
+control = c(13, control_failures)
+q5_data <- as.table(matrix(c(strep, control),nrow=2,byrow = T))
+colnames(q5_data) <- c("Treatment.success", "Treatment.failure")
+rownames(q5_data) <- c("Control.success", "Control.failure")
 q5_data
 
 #' Constructing contingency table
-q5_contingency <- matrix(c(19, 13, 32, 189, 87, 276, 208, 200, 716), nrow = 3, byrow = TRUE)
-colnames(q5_contingency) <- c("Streptokinase", "Control", "Total")
-rownames(q5_contingency) <- c("Died", "Survived", "Total")
+q5_contingency <- matrix(c(19, 170, 189, 13, 74, 87, 32, 244, 276), nrow = 3, byrow = TRUE)
+colnames(q5_contingency) <- c("Treatment.success", "Treatment.failures", "Total")
+rownames(q5_contingency) <- c("Control.success", "Control.failures", "Total")
 q5_contingency
 
 # I constructed a matrix for just the data for analysis, the constructed contingency 
@@ -121,17 +106,17 @@ q5_result <- prop.test(q5_data)
 q5_result
 
 #' This test reports:
-#' 
 #' data:  q5_data
-#' X-squared = 0.70836, df = 1, p-value = 0.4
+#' X-squared = 0.95354, df = 1, p-value = 0.3288
 #' alternative hypothesis: two.sided
 #' 95 percent confidence interval:
-#'   -0.2872446  0.1051794
+#'   -0.14360110  0.04580872
 #' sample estimates:
-#'  prop 1    prop 2 
-#'  0.5937500 0.6847826 
-#'  
+#'   prop 1    prop 2 
+#'   0.1005291 0.1494253 
+
 #' The interpretation of this test is in the written report 
+
 
 # PART 4 
 # Conducting Chi-square for independence 
@@ -142,17 +127,9 @@ q5_independence
 #' This test reports:
 #' 
 #' data:  q5_data
-#' X-squared = 0.70836, df = 1, p-value = 0.4
+#' X-squared = 0.95354, df = 1, p-value = 0.3288
 #' 
 #' The interpretation of this test is in the written report 
-
-# Part 5
-#' Given that you would be examining data only from March of 1985, it is very 
-#' likely the sample size for either group would be much smaller. Due to the 
-#' smaller sample size, it is likely that a chi-square test cannot be used as 
-#' it does not fulfill the requirements of p*n*(1-p) > 5. Therefore, I would 
-#' use a Fisher Exact test to test for independence of variables
-#' (i.e. testing to see if the effects of the streptokinase is independent of the control). 
 
 
 
@@ -163,33 +140,13 @@ q5_independence
 #' Note that the hypothesis for this question 
 #' are stated in the written report
 
-#' PART 1:
-#' The statistical test that I would use for this question is the McNemar test. 
-#' This is due to the data being examined is binomial (each women has a 
-#' probability of having either a premature and normal birth) and categorical as
-#' the data is paired. Specifically, the data is paired as it is intentionally 
-#' matched to minimize other variables, pairing women of similar weight to 
-#' better isolate the effect of treatment. 
-
-#' The assumptions required for a McNemar test are:
-#' - Paired, nominal data (in this case, the data is intentionally matched as each women is 
-#'    paired with another with a similar weight and nominal as there is 
-#'    no intrinsic order between normal and premature births). 
-#' - Independence of observations (each unit of observation, in this case a pair,
-#'    must be independent of others)
-#' - Mutual exclusivity (each state, having an premature birth or not, must be mutually exclusive)
-#' - Analyses binomial data (only 2 outcomes with a certain probability). 
-#' - n_d (the number of discordant pairs) > 20 
-#' - One categorical variable with 2 distinct states/categories --> Normal Birth, Premature Birth
-#' - One independent categorical variable with 2 distinct groups --> Drug A, Placebo
-
 #' PART 2:
 #' Constructing data table
 q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE, 
                   dimnames = list(DrugA = c("Premature", "Normal"), 
                                   Placebo = c("Premature", "Normal")))
 q6_data
-# I constrcuted a matrix for just the data for analysis, the constructed contingency 
+# I constructed a matrix for just the data for analysis, the constructed contingency 
 # table (see below) was constructed to better visualize the data & discordant pairs 
 
 #' Constructing contingency table
