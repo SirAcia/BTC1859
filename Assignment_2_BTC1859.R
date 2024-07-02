@@ -29,6 +29,7 @@ t.test(MEN, mu=15, alternative = "less")
 
 #For Q2, the code which computes the statistical test is: 
 t.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
+
 #' This test reports: 
 #' 
 #' data:  MEN and WOMEN
@@ -54,6 +55,7 @@ wilcox.test(MEN, mu=15, alternative = "less")
 
 # For Q3, the code to run a Wilcoxon, two-sample, two-sided test: 
 wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
+
 #' This test reports:
 #' 
 #' data:  MEN and WOMEN
@@ -62,11 +64,17 @@ wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #'
 #' The interpretation of this test is in the written report
 
+
+
+#' ---------------------------------------------------------------------------------------------
 # QUESTION 5 
 
 # Part 1:
 #' This question deals with 2 distinct groups, a control and a treatment group, each with a given 
-#' probability of acquiring a disease state (i.e. having a myocardial infarction or MI). 
+#' probability of surviving a myocardial infarction 
+#' 
+#' Note that the hypothesis for this question (for both the proportion testing and independence testing)
+#' are stated in the written report
 #' 
 #' Even though we look at overall number of cases in each group, each sample consists of an 
 #' aggregation of individual Bernoulli trials (each individual has an given odds to have an MI). 
@@ -79,7 +87,7 @@ wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #'    - (n_1)*p*(1 − p) > 5, where p is the pooled probability from the 2 samples
 #'    - (n_2)*p*(1 − p) > 5, where p is the pooled probability from the 2 samples
 #' - Independence of observations (each unit of observation must be independent of others)
-#' - Mutual exclusivity (each state, having an Mi or not having an MI, must be mutually exclusive from each other)
+#' - Mutual exclusivity (each state, survived an MI or deceased, are mutually exclusive from each other)
 
 #' PART 3 
 #' Visualizing the data 
@@ -94,6 +102,9 @@ q5_contingency <- matrix(c(19, 13, 32, 189, 87, 276, 208, 200, 716), nrow = 3, b
 colnames(q5_contingency) <- c("Streptokinase", "Control", "Total")
 rownames(q5_contingency) <- c("Died", "Survived", "Total")
 q5_contingency
+
+# I constructed a matrix for just the data for analysis, the constructed contingency 
+# table (see below) was constructed to better visualize the data  
 
 # Calculating proportions and testing with pooled estimate of probability, p_hat
 p_strep <- 19/189
@@ -111,7 +122,7 @@ q5_result
 
 #' This test reports:
 #' 
-#' data:  q3_data
+#' data:  q5_data
 #' X-squared = 0.70836, df = 1, p-value = 0.4
 #' alternative hypothesis: two.sided
 #' 95 percent confidence interval:
@@ -120,7 +131,7 @@ q5_result
 #'  prop 1    prop 2 
 #'  0.5937500 0.6847826 
 #'  
-#' The interpretatuon of this test is in the written report 
+#' The interpretation of this test is in the written report 
 
 # PART 4 
 # Conducting Chi-square for independence 
@@ -133,7 +144,7 @@ q5_independence
 #' data:  q5_data
 #' X-squared = 0.70836, df = 1, p-value = 0.4
 #' 
-#' The interpretatuon of this test is in the written report 
+#' The interpretation of this test is in the written report 
 
 # Part 5
 #' Given that you would be examining data only from March of 1985, it is very 
@@ -149,21 +160,28 @@ q5_independence
 
 # QUESTION 6
 
+#' Note that the hypothesis for this question 
+#' are stated in the written report
+
 #' PART 1:
 #' The statistical test that I would use for this question is the McNemar test. 
-#' This is due to the data being examined is binomial (only 2 states, premature and normal)
-#'  and categorical as well as the data is paired. Specifically, the data is paired 
-#'  as it is intentionally matched to minimize other variables, pairing women of
-#'   similar weight to better isolate the effect of treatment. 
+#' This is due to the data being examined is binomial (each women has a 
+#' probability of having either a premature and normal birth) and categorical as
+#' the data is paired. Specifically, the data is paired as it is intentionally 
+#' matched to minimize other variables, pairing women of similar weight to 
+#' better isolate the effect of treatment. 
 
 #' The assumptions required for a McNemar test are:
-#' - Paired data (in this case, the data is intentionally matched as each women is 
-#'    paired with another with a similar weight). 
+#' - Paired, nominal data (in this case, the data is intentionally matched as each women is 
+#'    paired with another with a similar weight and nominal as there is 
+#'    no intrinsic order between normal and premature births). 
 #' - Independence of observations (each unit of observation, in this case a pair,
 #'    must be independent of others)
 #' - Mutual exclusivity (each state, having an premature birth or not, must be mutually exclusive)
 #' - Analyses binomial data (only 2 outcomes with a certain probability). 
-#' - n_d (the number of discordant pairs) > 20  
+#' - n_d (the number of discordant pairs) > 20 
+#' - One categorical variable with 2 distinct states/categories --> Normal Birth, Premature Birth
+#' - One independent categorical variable with 2 distinct groups --> Drug A, Placebo
 
 #' PART 2:
 #' Constructing data table
@@ -171,6 +189,8 @@ q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE,
                   dimnames = list(DrugA = c("Premature", "Normal"), 
                                   Placebo = c("Premature", "Normal")))
 q6_data
+# I constrcuted a matrix for just the data for analysis, the constructed contingency 
+# table (see below) was constructed to better visualize the data & discordant pairs 
 
 #' Constructing contingency table
 q6_contingency <- matrix(c("Drug A/Placebo", "Premature", "Normal", "Total", 
@@ -182,14 +202,14 @@ q6_contingency
 
 #' The condition to be satisfied for a specific McNemar test is: n_d >= 20 
 #' Need to use as.numeric here as the matrix stores all data as "character"
-#' as strings were enbtered with numbers
+#' as strings were entered with numbers
 n_d_check <- sum(as.numeric(q6_contingency[3,2]), as.numeric(q6_contingency[2,3]))
 n_d_check
 
 # Since n_d > 20, we fulfill all assumption for the McNemar test and can conduct the test
 
 #' PART 3:
-# Conducting Mcnemar test 
+# Conducting McNemar test 
 q6_result <- mcnemar.test(q6_data)
 q6_result
 
