@@ -61,19 +61,12 @@ wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #' alternative hypothesis: true location shift is not equal to 0
 #'
 #' The interpretation of this test is in the written report
-<<<<<<< HEAD
-=======
 
->>>>>>> 12eebf7699c2b882a303435f9fb78fa5028b16ce
 
 
 #' ---------------------------------------------------------------------------------------------
 
-<<<<<<< HEAD
-#' ---------------------------------------------------------------------------------------------
 
-=======
->>>>>>> 12eebf7699c2b882a303435f9fb78fa5028b16ce
 # QUESTION 5 
 
 # Part 1:
@@ -160,16 +153,7 @@ q5_independence
 #' ---------------------------------------------------------------------------------------------
 
 # QUESTION 6
-<<<<<<< HEAD
-=======
 
-#' PART 1:
-#' The statistical test that I would use for this question is the McNemar test. 
-#' This is due to the data being examined is binomial (only 2 states, premature and normal)
-#'  and categorical as well as the data is paired. Specifically, the data is paired 
-#'  as it is intentionally matched to minimize other variables, pairing women of
-#'   similar weight to better isolate the effect of treatment. 
->>>>>>> 12eebf7699c2b882a303435f9fb78fa5028b16ce
 
 #' PART 1:
 #' The statistical test that I would use for this question is the McNemar test. 
@@ -188,18 +172,7 @@ q5_independence
 #' - Analyses binomial data (only 2 outcomes with a certain probability). 
 #' - n_d (the number of discordant pairs) > 20  
 
-<<<<<<< HEAD
-=======
-#' The assumptions required for a McNemar test are:
-#' - Paired data (in this case, the data is intentionally matched as each women is 
-#'    paired with another with a similar weight). 
-#' - Independence of observations (each unit of observation, in this case a pair,
-#'    must be independent of others)
-#' - Mutual exclusvitiy (each state, having an premature birth or not, must be mutually exclusive)
-#' - Analyses bionomial data (only 2 outcomes with a certain probability). 
-#' - n_d (the number of discordant pairs) > 20  
 
->>>>>>> 12eebf7699c2b882a303435f9fb78fa5028b16ce
 #' Constructing data table
 q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE, dimnames = list(DrugA = c("Premature", "Normal"), Placebo = c("Premature", "Normal")))
 q6_data
