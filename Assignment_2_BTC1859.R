@@ -62,11 +62,6 @@ wilcox.test(MEN, WOMEN, alternative = "two.sided", na.rm=T)
 #'
 #' The interpretation of this test is in the written report
 
-
-
-#' ---------------------------------------------------------------------------------------------
-
-
 # QUESTION 5 
 
 # Part 1:
@@ -154,7 +149,6 @@ q5_independence
 
 # QUESTION 6
 
-
 #' PART 1:
 #' The statistical test that I would use for this question is the McNemar test. 
 #' This is due to the data being examined is binomial (only 2 states, premature and normal)
@@ -172,7 +166,6 @@ q5_independence
 #' - Analyses binomial data (only 2 outcomes with a certain probability). 
 #' - n_d (the number of discordant pairs) > 20  
 
-
 #' Constructing data table
 q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE, dimnames = list(DrugA = c("Premature", "Normal"), Placebo = c("Premature", "Normal")))
 q6_data
@@ -182,7 +175,7 @@ q6_contingency <- matrix(c("Drug A/Placebo", "Premature", "Normal", "Total", "Pr
 q6_contingency
 # The discordant pairs are premature/normal as well as normal/premature,  
 # they correspond to the values [3,2] & [2,3] in the matrix q6_data
- 
+
 #The condition to be satisfied for a specific McNemar test is: n_d >= 20 
 # Need to use as.numeric here as the matrix stores all data as "character" as strings were enbtered with numbers
 n_d_check <- sum(as.numeric(q6_contingency[3,2]), as.numeric(q6_contingency[2,3]))
@@ -199,5 +192,4 @@ q6_result
 #' McNemar's chi-squared = 7.22, df = 1, p-value = 0.00721
 #' 
 #' The interpretation of this test is in the written report 
-
 
