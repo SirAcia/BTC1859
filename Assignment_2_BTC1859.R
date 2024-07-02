@@ -5,7 +5,7 @@
 # Github repo for R: https://github.com/SirAcia/BTC1859.git
 
 # Please note that questions 1-3 are answered on the word document/written report
-# Additionally, questins 4-6 flip between the word report and the R file (for interpretations, etc.) 
+# Additionally, questions 4-6 flip between the word report and the R file (for interpretations, etc.) 
 
 #' ---------------------------------------------------------------------------------------------
 
@@ -156,7 +156,6 @@ q5_independence
 #'  as it is intentionally matched to minimize other variables, pairing women of
 #'   similar weight to better isolate the effect of treatment. 
 
-
 #' The assumptions required for a McNemar test are:
 #' - Paired data (in this case, the data is intentionally matched as each women is 
 #'    paired with another with a similar weight). 
@@ -166,23 +165,31 @@ q5_independence
 #' - Analyses binomial data (only 2 outcomes with a certain probability). 
 #' - n_d (the number of discordant pairs) > 20  
 
+#' PART 2:
 #' Constructing data table
-q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE, dimnames = list(DrugA = c("Premature", "Normal"), Placebo = c("Premature", "Normal")))
+q6_data <- matrix(c( 30, 15, 35, 420), nrow = 2, ncol = 2,byrow = TRUE, 
+                  dimnames = list(DrugA = c("Premature", "Normal"), 
+                                  Placebo = c("Premature", "Normal")))
 q6_data
 
 #' Constructing contingency table
-q6_contingency <- matrix(c("Drug A/Placebo", "Premature", "Normal", "Total", "Premature", 30, 15, 45, "Normal", 35, 420, 455,"Total", 65, 435, 500), nrow = 4, byrow = TRUE)
+q6_contingency <- matrix(c("Drug A/Placebo", "Premature", "Normal", "Total", 
+                           "Premature", 30, 15, 45, "Normal", 35, 420, 455,"Total", 
+                           65, 435, 500), nrow = 4, byrow = TRUE)
 q6_contingency
 # The discordant pairs are premature/normal as well as normal/premature,  
 # they correspond to the values [3,2] & [2,3] in the matrix q6_data
 
-#The condition to be satisfied for a specific McNemar test is: n_d >= 20 
-# Need to use as.numeric here as the matrix stores all data as "character" as strings were enbtered with numbers
+#' The condition to be satisfied for a specific McNemar test is: n_d >= 20 
+#' Need to use as.numeric here as the matrix stores all data as "character"
+#' as strings were enbtered with numbers
 n_d_check <- sum(as.numeric(q6_contingency[3,2]), as.numeric(q6_contingency[2,3]))
 n_d_check
 
 # Since n_d > 20, we fulfill all assumption for the McNemar test and can conduct the test
-#Condcuting Mcnemar test 
+
+#' PART 3:
+# Conducting Mcnemar test 
 q6_result <- mcnemar.test(q6_data)
 q6_result
 
