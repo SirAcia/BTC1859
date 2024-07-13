@@ -44,3 +44,26 @@ head(wgt1)
 anyNA(wgt1$mother_wgt_alt)
 
 summary(wgt1)
+
+x <- wgt1$mother_wgt_alt
+y <- wgt1$baby_wgt
+plot(x,y, xlab = "Mother's Pre-Birth Weight", ylab = "Birth Weight")
+
+#Observations? 
+
+#' ---------------------------------------------------------------------------------------------
+
+# QUESTION 2
+wgt_model <- lm(wgt1$baby_wgt~wgt1$mother_wgt_alt)
+
+summary(wgt_model)
+
+plot(wgt_model)
+confint(wgt_model)
+
+
+#' ---------------------------------------------------------------------------------------------
+
+# QUESTION 3
+msX <- data.frame(mother_wgt_alt = c(160))
+predict(wgt_model, newdata = msX, type = "p")
