@@ -29,8 +29,7 @@ attach(babies)
 #' Most notable concerns is the max of 999 for gestation, only males 
 #' (may be due to original data set), no NAs in the original dataframe, no use of factoers for categorical variables 
 
-wgt <- data.frame(data = c(c(babies$wt), c(babies$wt1)), ncol = 2)
-colnames(wgt) = c("baby_wgt", "mother_wgt")
+wgt <- data.frame(baby_wgt = c(babies$wt), mother_wgt = c(babies$wt1))
 
 summary(wgt)
 
