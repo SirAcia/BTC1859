@@ -54,7 +54,7 @@ plot(x,y, xlab = "Mother's Pre-Birth Weight", ylab = "Birth Weight")
 #' ---------------------------------------------------------------------------------------------
 
 # QUESTION 2
-wgt_model <- lm(wgt1$baby_wgt~wgt1$mother_wgt_alt)
+wgt_model <- lm(baby_wgt~mother_wgt_alt, data = wgt1)
 
 summary(wgt_model)
 
@@ -66,4 +66,4 @@ confint(wgt_model)
 
 # QUESTION 3
 msX <- data.frame(mother_wgt_alt = c(160))
-predict(wgt_model, newdata = msX, type = "p")
+predict(wgt_model, newdata = msX, int = "p")
