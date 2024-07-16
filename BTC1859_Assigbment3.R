@@ -47,7 +47,8 @@ summary(wgt1)
 
 x <- wgt1$mother_wgt_alt
 y <- wgt1$baby_wgt
-plot(x,y, xlab = "Mother's Pre-Birth Weight", ylab = "Birth Weight")
+plot(x,y, xlab = "Mother's Pre-Birth Weight (lbs)", ylab = "Newborn Birthweight (oz)")
+title(main = "Mother's Weight vs Babies' Birthweight")
 
 #Observations? 
 
@@ -66,4 +67,28 @@ confint(wgt_model)
 
 # QUESTION 3
 msX <- data.frame(mother_wgt_alt = c(160))
-predict(wgt_model, newdata = msX, int = "p")
+predict(wgt_model, newdata = msX, int = "p", level = 0.95)
+#level argument here can be considered redundant but included for sake of readanbility & clairity 
+
+#' ---------------------------------------------------------------------------------------------
+
+# QUESTION 4
+predict(wgt_model, newdata = msX, int = "c", level = 0.95)
+#level argument here can be considered redundant but included for sake of readanbility & clairity 
+
+#' ---------------------------------------------------------------------------------------------
+
+# QUESTION 5
+
+#' Given that covariance is between -1 and 1, with 1 being perfect corrwlartion, I would argue this is positive and approx. 0.5
+#' This is because the data seesm closely correlated, realtively gerouped together, with variation in either weights matching direction to variation in the other. 
+#' (i.e. when mother birthrate is smaller than average, the birthweight is smaller as well and vice-versa) however, ecspecially with the heavier pre-birthweight, this relationship is not as strong
+#' justifying the 0.5 coefficient estimate rather than a higher value. Biologically this is supported as well, if a mother is of lower weight due to nutrition or physical stature, there is 
+#' biological limitations & pressure for a smaller birthweight (i.e. less nutrients so msaller baby or genetic bias toward individuals of a smaller stature)
+
+#' ---------------------------------------------------------------------------------------------
+
+# QUESTION 6
+wgt_corr <- cor.test(wgt1$baby_wgt, wgt1$mother_wgt_alt, alternative = "two.sided", method = "pearson", conf.level = 0.95)
+wgt_corr
+
