@@ -95,10 +95,6 @@ round(exp(BMI_model$coefficients),2)
 round(exp(confint(BMI_model, level = 0.95)),2)
 # Note that the levels = 0.95 argument is not technically needed as 
 # default is 0.95, kept for readability
-
-# Interpretation of the odds ratios & CIs are contained within the written report 
-
-
 #' ---------------------------------------------------------------------------------------------
 # QUESTION 4 
 
