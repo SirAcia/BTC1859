@@ -7,6 +7,7 @@
 #' ---------------------------------------------------------------------------------------------
 
 library(UsingR)
+library(dplyr)
 ?babies
 
 #' ---------------------------------------------------------------------------------------------
@@ -40,6 +41,7 @@ summary(data$wt1)
 
 summary(data$gestation)
 # From summary of gestation, see presence of 999, likely outlier or NA (not explicitly specified in help)
+# As a gestation of 999 days ( or >2 yrs) is extreme unlikely/biologically improbable, likely missing values
 gest_sort <- sort(data$gestation, decreasing = T, 10)
 head(gest_sort, 20)
 # Removing 999s, setting as NAs 
@@ -63,6 +65,9 @@ data$race_fctr <- factor(data$race_fctr, levels = c("white", "black", "mex", "as
 data$BMI <-  (data$wt1/2.2)/(data$ht*2.54/100)^2
 
 # Creating binary gestation variable, 1 = premature (SUCCESS), 0 = normal (FAILURE)
+data <- data %>%
+  mutate(gestation_days = gestation/7)
+
 data$premature <- ifelse(data$gestation < (37*7), 1, 0)
 # Using < (37*7) as gestation is in days, but want to sort by whether gestation > 37 weeks
 
@@ -72,14 +77,22 @@ data$smoke_fctr <- factor(data$smoke, levels =c(0, 1, 2, 3), labels = c("Never",
 
 # Using na.omit to remove rows with NAs, allows for the two models (created below) 
 # to be compared as they will be using the same dataset with the same length & size 
-data2 <- na.omit(data)
+# Storing as difference data frame so does not remove values from other values not used in model 
+data2 <- data.frame(
+  premature = data$premature,
+  BMI = data$BMI,
+  smoke_fctr = data$smoke_fctr,
+  race_fctr = data$race_fctr
+)
+
+data3 <- na.omit(data2)
 
 #' ---------------------------------------------------------------------------------------------
 # QUESTION 2
 
 # Creating first logarithmic model predicting binary response variable, premature, 
 # from predictor variables BMI & smoke (4 level factor, default as non-smoker)
-BMI_model <- glm(premature~BMI+smoke_fctr,data = data2,family = binomial)
+BMI_model <- glm(premature~BMI+smoke_fctr,data = data3,family = binomial)
 summary(BMI_model)
 
 # The interpretation of the model is contained within the written report 
@@ -89,10 +102,10 @@ summary(BMI_model)
 # QUESTION 3 
 
 # Calculating Odds Ratio for each coefficient
-round(exp(BMI_model$coefficients),2)
+round(exp(BMI_model$coefficients),3)
 
 # Calculating 95% confidence levels for each coefficient 
-round(exp(confint(BMI_model, level = 0.95)),2)
+round(exp(confint(BMI_model, level = 0.95)),3)
 # Note that the levels = 0.95 argument is not technically needed as 
 # default is 0.95, kept for readability
 
@@ -105,7 +118,7 @@ round(exp(confint(BMI_model, level = 0.95)),2)
 # Creating second logarithmic model predicting binary response variable, premature, 
 # from predictor variables BMI, smoke (4 level factor, reference as non-smoker), and 
 # race (4 level factor with white as reference level)
-BMI_model_2 <- glm(premature~BMI+smoke_fctr+race_fctr,data = data2,family = binomial)
+BMI_model_2 <- glm(premature~BMI+smoke_fctr+race_fctr,data = data3,family = binomial)
 summary(BMI_model_2)
 
 # Using ANOVA to perform goodness-of-fit test between the models
