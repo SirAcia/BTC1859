@@ -14,7 +14,7 @@ library(pwr)
 # Examining the context of the study, it is a two-arm, paired study, observing 2 groups
 # (control/PSG and Breadth-IDX/treatment) with an initial and a follow-up 6 months later 
 
-# As the styudy is paired, rho is assumed to be contained between [0,1] (i.e. no 
+# As the study is paired, rho is assumed to be contained between [0,1] (i.e. no 
 # assumption of potential negative correlation)
 
 
@@ -42,7 +42,7 @@ powervals <- cbind(power.t.test(n = n_vals, delta = 3, sd = (4 * sqrt(2 -0.0)), 
 
 # Plotting power curves 
 # Setting blank plot 
-plot(range(n_vals), range(powervals), type = "n", xlab="sample size",ylab="power",main="power curves")
+plot(range(n_vals), range(powervals), type = "n", xlab = "Sample Size Per Arm (n)",ylab = "Power", main = "Power Curves for Different Rho Values")
 
 # Setting colors for power curves
 colors <- c("blue", "orange", "black", "red", "green", "darkgreen", "lightgreen", "lightblue", "tomato", "darkred", "brown")
@@ -51,7 +51,8 @@ colors <- c("blue", "orange", "black", "red", "green", "darkgreen", "lightgreen"
 matlines(n_vals, powervals, type="l", lty = 1, col = colors)
 
 # Setting legend for graph 
-legend("bottomright",legend = paste("rho=",rho_values,sep=""),col = colors)
+legend("bottomright", legend = paste("rho =", rho_values), col = colors, lty = 1, 
+      title = "Rho Values", cex = 0.6)
 
 
 #' ---------------------------------------------------------------------------------------------
